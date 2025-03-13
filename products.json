@@ -1,0 +1,45 @@
+[
+    {
+        "id": 1,
+        "name":" 19L Water Jar",
+        "price": 80.00,
+        "image": "images/jar.png"
+    },
+    {
+        "id": 2,
+        "name":"1L water Bottle",
+        "price": 30.00,
+        "image": "images/bottle.png"
+    },
+    {
+        "id": 3,
+        "name":" 1L water Bottle (12 pcs)",
+        "price": 300.00,
+        "image": "images/bundle.png"
+    },
+    {
+        "id": 4,
+        "name":" Automatic Water Despencer",
+        "price": 300.00,
+        "image": "images/desp.png"
+    },
+    {
+        "id": 5,
+        "name":" 5L Water Despencer",
+        "price": 350.00,
+        "image": "images/desp1.png"
+    },
+    {
+        "id": 6,
+        "name":" Hot & Cool water Despencer",
+        "price": 3400.00,
+        "image": "images/desp3.png"
+    },
+    {
+        "id": 7,
+        "name":" 15L Cool Water Jar",
+        "price": 50.00,
+        "image": "images/desp4.png"
+    }
+    
+]

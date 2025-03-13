@@ -1,0 +1,271 @@
+/* Import Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap");
+
+/* Global Styles */
+body {
+    font-family: "Nunito", sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 700;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Navbar */
+.navbar {
+    padding: 1rem 0;
+}
+
+.navbar-brand img {
+    width: 150px;
+}
+
+.navbar-nav .nav-link {
+    font-size: 1rem;
+    margin-right: 1rem;
+    color: #555;
+}
+
+.navbar-nav .nav-link.active,
+.navbar-nav .nav-link:hover {
+    color: #007bff;
+}
+
+/* Hero Section */
+.hero-section {
+    position: relative;
+    height: 80vh;
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-section .carousel-item {
+    height: 80vh;
+}
+
+.hero-section .carousel-caption {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.hero-section .carousel-caption h2 {
+    font-size: 3rem;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.hero-section .carousel-caption p {
+    font-size: 1.25rem;
+}
+
+.hero-section .carousel-caption a.btn {
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+}
+
+/* Our Venues Section */
+.bg-light {
+    background-color: #f8f9fa !important;
+}
+
+.card {
+    border: none;
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.card-text {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+.btn-outline-primary {
+    border-color: #007bff;
+    color: #007bff;
+}
+
+.btn-outline-primary:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* Testimonials Section */
+.testimonial-carousel .testimonial-item {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    margin-bottom: 1rem;
+}
+
+.testimonial-item h5 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.testimonial-item p {
+    font-size: 0.9rem;
+    color: #777;
+}
+
+/* Call to Action Section */
+.call-to-action {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    padding: 5rem 0;
+    color: #fff;
+}
+
+.call-to-action .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.call-to-action h2 {
+    font-size: 2.5rem;
+}
+
+.call-to-action p {
+    font-size: 1.25rem;
+}
+
+.call-to-action .btn {
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+}
+
+/* Footer */
+footer {
+    background-color: #001442;
+    color: #ccc;
+}
+
+footer h5 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+footer p {
+    font-size: 0.9rem;
+    color: #aaa;
+}
+
+footer a {
+    color: #ccc;
+}
+
+footer a:hover {
+    color: #fff;
+}
+
+.social-links a {
+    font-size: 1.2rem;
+}
+
+.social-links a:not(:last-child) {
+    margin-right: 0.5rem;
+}
+
+/* Back to Top Button */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #007bff;
+    color: #fff;
+    width: 50px;
+    height: 50px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.back-to-top:hover {
+    background-color: #0056b3;
+}
+
+.back-to-top i {
+    font-size: 1.25rem;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .hero-section .carousel-caption h2 {
+        font-size: 2rem;
+    }
+
+    .hero-section .carousel-caption p {
+        font-size: 1rem;
+    }
+
+    .call-to-action h2 {
+        font-size: 2rem;
+    }
+
+    .call-to-action p {
+        font-size: 1rem;
+    }
+
+    .card-img-top {
+        height: 180px;
+    }
+}
+
+@media (max-width: 576px) {
+    .navbar-nav {
+        margin-top: 1rem;
+    }
+
+    .navbar-nav .nav-item {
+        margin-bottom: 0.5rem;
+    }
+
+    .card-img-top {
+        height: 150px;
+    }
+}
