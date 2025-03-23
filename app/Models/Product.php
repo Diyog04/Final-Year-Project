@@ -12,5 +12,7 @@ class Product extends Model
         'title2',
         'description2',
         'image2',
+        'contact',
+        'packege',
     ];
 }

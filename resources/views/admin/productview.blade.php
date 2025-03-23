@@ -16,7 +16,6 @@
                                 <th scope="col">Id</th>
                                 <th scope="col">Title</th>
                                 <th scope="col">Description</th>
-                                <th scope="col"></th>
                                 <th scope="col">Image</th>
                                 <th scope="col">Action</th>
                             </tr>
@@ -27,13 +26,15 @@
                             @foreach($data as $key=>$item)
                             <tr>
                                 <td>{{$key + 1}}</td>
-                                <td>{{$item->title2}}</td>
+                                 <td>{{$item->title2}}</td>
                                 <td>{{$item->description2}}</td>
-                                <td>{{$item->radio2}}</td>
+                                    <td>{{$item->contact}}</td>
 
                                 <!-- <td><img src="{{asset ('$item->image2')}}" alt=""></td> -->
                                 <td><img src="{{ asset('storage/' . $item->image2) }}" width='70px' alt="Image">
                                 </td>
+
+                                
                                 <td>
                                     <a class="btn btn-warning" href="{{ route('product.edit', $item->id) }}">Edit</a>
                                     <!-- <a class="btn btn-danger"

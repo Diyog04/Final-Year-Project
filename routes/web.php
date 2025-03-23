@@ -8,6 +8,7 @@ use App\Http\Controllers\CallController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VendorController;
+use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
 
@@ -51,9 +52,12 @@ Route::get('/events', [EventController::class, 'index'])->name('events.index');
 //     return view('dashboard');
 // });
 
-Route::middleware('auth', 'role:admin')->group(function () {
-    Route::get('/admindash', [AdminController::class, 'Admin']);
-});
+// Route::middleware('auth', 'role:admin')->group(function () {
+//     Route::get('/admindash', [AdminController::class, 'Admin']);
+// });
+
+
+Route::get('/admindash', [AdminController::class, 'Admin']);
 
 
 // Route::middleware('auth', 'role:vendor')->group(function () {
@@ -63,6 +67,15 @@ Route::middleware('auth', 'role:admin')->group(function () {
 // Route::middleware('auth', 'role:user')->group(function () {
 //     Route::get('/userdash', [UserController::class, 'User']);
 // });
+
+
+// payment
+// Product detail route
+Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.detail');
+
+// Payment routes
+Route::post('/initiate-payment/{productId}', [PaymentController::class, 'initiatePayment'])->name('initiate.payment');
+Route::get('/payment-success', [PaymentController::class, 'handlePaymentSuccess'])->name('payment.success');
 
 
 

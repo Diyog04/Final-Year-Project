@@ -17,9 +17,6 @@
 
                         <label for="description1" class="col-form-label">Card Text:</label>
                         <textarea name="description1" class="form-control" id="message-text"></textarea>
-
-                        <label class="col-form-label" for="imageUpload1">Upload an image:</label>
-                        <input type="file" id="imageUpload" name="imageUpload1" accept="image/*">
                     </div>
                     <button type="submit" class="btn btn-primary w-25">Submit</button>
                 </form>

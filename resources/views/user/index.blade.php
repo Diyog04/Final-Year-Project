@@ -17,6 +17,7 @@
             padding: 0;
             background-color: #f9f9f9;
             color: #333;
+            scroll-behavior: smooth;
         }
 
         header {
@@ -27,17 +28,23 @@
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
         header .logo {
             font-size: 1.75rem;
             font-weight: 600;
             letter-spacing: 1px;
+            animation: fadeInDown 1s ease-out;
         }
 
         header nav {
             display: flex;
             gap: 1.5rem;
+            align-items: center;
+            animation: fadeInDown 1s ease-out;
         }
 
         header nav a {
@@ -52,21 +59,89 @@
             color: #ffdd57;
         }
 
-        .hero {
+        .notification-bell {
+            position: relative;
+            font-size: 1.2rem;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .notification-bell:hover {
+            transform: scale(1.1);
+        }
+
+        .notification-bell .badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #ff4d4d;
+            color: white;
+            font-size: 0.75rem;
+            padding: 3px 6px;
+            border-radius: 50%;
+        }
+
+        .notification-dropdown {
+            position: absolute;
+            top: 50px;
+            right: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, opacity 0.3s ease;
+            opacity: 0;
+            z-index: 1000;
+        }
+
+        .notification-dropdown.active {
+            max-height: 400px; /* Adjust based on content */
+            opacity: 1;
+        }
+
+        .notification-dropdown .notification-header {
+            padding: 1rem;
+            border-bottom: 1px solid #ddd;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .notification-dropdown .notification-list {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .notification-dropdown .notification-item {
+            padding: 1rem;
+            border-bottom: 1px solid #ddd;
+            color: #555;
+            transition: background-color 0.3s ease;
+        }
+
+        .notification-dropdown .notification-item:hover {
+            background-color: #f9f9f9;
+        }
+
+        .notification-dropdown .notification-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Hero Section */
+        .carousel {
             position: relative;
             overflow: hidden;
             margin-bottom: 2rem;
-        }
-
-        .carousel {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
         }
 
         .carousel img {
             width: 100%;
             height: 500px;
             object-fit: cover;
+            animation: zoomIn 10s infinite alternate;
         }
 
         .carousel-controls {
@@ -93,6 +168,7 @@
             background-color: rgba(0, 0, 0, 0.8);
         }
 
+        /* Search Filters */
         .search-filters {
             margin: 2rem auto;
             max-width: 1200px;
@@ -104,6 +180,7 @@
             justify-content: center;
             gap: 1rem;
             flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out;
         }
 
         .search-filters select,
@@ -134,6 +211,7 @@
             background-color: #0056b3;
         }
 
+        /* Venues Section */
         .venues {
             max-width: 1200px;
             margin: 2rem auto;
@@ -150,6 +228,7 @@
             overflow: hidden;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 1s ease-out;
         }
 
         .venue-card:hover {
@@ -206,6 +285,7 @@
             background-color: #810505;
             border-radius: 10px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 1s ease-out;
         }
 
         .testimonials h2 {
@@ -213,7 +293,7 @@
             font-size: 2rem;
             font-weight: 600;
             margin-bottom: 2rem;
-            color: #333;
+            color: white;
         }
 
         .testimonial-cards {
@@ -317,7 +397,18 @@
         }
 
         /* Animations */
-        @keyframes fadeIn {
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
             from {
                 opacity: 0;
                 transform: translateY(20px);
@@ -328,8 +419,17 @@
             }
         }
 
+        @keyframes zoomIn {
+            from {
+                transform: scale(1);
+            }
+            to {
+                transform: scale(1.1);
+            }
+        }
+
         .fade-in {
-            animation: fadeIn 1s ease-out;
+            animation: fadeInUp 1s ease-out;
         }
     </style>
 </head>
@@ -339,89 +439,93 @@
     <header>
         <div class="logo">VenueSathi</div>
         <nav>
+        <div class="notification-bell" onclick="toggleNotifications()">
+                <i class="fas fa-bell"></i>
+            </div>
             <a href="/">Home</a>
             <a href="/about">About</a>
             <a href="/blog">Blog</a>
             <a href="/login">Login</a>
+            
         </nav>
+        <!-- Notification Dropdown -->
+        <div class="notification-dropdown" id="notificationDropdown">
+        
+            <div class="notification-header">Notifications</div>
+            <ul class="notification-list">
+            
+                <li class="notification-item">
+                @foreach ($products as $index => $call)
+                <h3>{{ $call->title1 }}</h3>
+                <p>{{ $call->description1 }}</p>
+                </li>
+                
+            </ul>
+            @endforeach
+        </div>
     </header>
 
     <!-- Hero Section with Carousel -->
-
     <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="images/banner-1.png" class="d-block w-100" alt="...">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="images/banner-1.png" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="images/banner-2.png" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="images/banner-3.png" class="d-block w-100" alt="...">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
-    <div class="carousel-item">
-      <img src="images/banner-2.png" class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="images/banner-3.png" class="d-block w-100" alt="...">
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
 
-  <h1 class="m-4 text-center" style="font-size: 2.5rem; font-weight: 600; color: #333;">Our Venues</h1>
+    <h1 class="m-4 text-center" style="font-size: 2.5rem; font-weight: 600; color: #333;">Our Venues</h1>
 
     <!-- Search Filters -->
     <form action="{{ route('event.search') }}" method="GET">
-    <div class="search-filters">
-        <select name="location">
-            <option value="">Select Location</option>
-            <option value="new-york">Itahari</option>
-            <option value="los-angeles">Damak</option>
-            <option value="los-angeles">Biratnagar</option>
-            <option value="los-angeles">Dharan</option>
-        </select>
-        <select name="event_type">
-            <option value="">Event Type</option>
-            <option value="wedding">Wedding</option>
-            <option value="party">Party</option>
-            <option value="party">Birthday</option>
-            <option value="party">Meeting</option>
-        </select>
-        <input type="date" name="date" />
-        <input type="number" name="max_price" placeholder="Max Price" />
-        <button type="submit">Search</button>
-    </div>
-</form>
-
-<!-- Ensure $events exists before accessing it -->
-@if(isset($events) && $events->isNotEmpty())
-    <ul>
-        @foreach($events as $event)
-            <li>{{ $event->name }} - {{ $event->location }} - ${{ $event->price }}</li>
-        @endforeach
-    </ul>
-@else
-   <!-- <p>No events found.</p> -->
-@endif
-
+        <div class="search-filters">
+            <select name="location">
+                <option value="">Select Location</option>
+                <option value="new-york">Itahari</option>
+                <option value="los-angeles">Damak</option>
+                <option value="los-angeles">Biratnagar</option>
+                <option value="los-angeles">Dharan</option>
+            </select>
+            <select name="event_type">
+                <option value="">Event Type</option>
+                <option value="wedding">Wedding</option>
+                <option value="party">Party</option>
+                <option value="party">Birthday</option>
+                <option value="party">Meeting</option>
+            </select>
+            <button type="submit">Search</button>
+        </div>
+    </form>
 
     <!-- Venues Section -->
     <section>
-    <div class="venues">
-        @foreach ($products as $index => $product)
-        <div class="venue-card fade-in">
-            <img src="{{ asset('storage/' . $product->image2) }}" alt="Venue Image">
-            <div class="details">
-                <h3>{{ $product->title2 }}</h3>
-                <p>{{ $product->description2 }}</p>
-                <a href="{{ route('product.detail', $product->id) }}" class="btn">View more</a>
+        <div class="venues">
+            @foreach ($products as $index => $product)
+            <div class="venue-card fade-in">
+                <img src="{{ asset('storage/' . $product->image2) }}" alt="Venue Image">
+                <div class="details">
+                    <h3>{{ $product->title2 }}</h3>
+                    <p>{{ $product->description2 }}</p>
+                    <a href="{{ route('product.detail', $product->id) }}" class="btn">View more</a>
+                </div>
             </div>
+            @endforeach
         </div>
-        @endforeach
-    </div>
-</section>
+    </section>
 
     <!-- Testimonials Section -->
     <div class="testimonials">
@@ -463,7 +567,7 @@
                 <h3>Follow Us</h3>
                 <div class="social-links">
                     <i class="fa-brands fa-facebook"></i> <!-- Facebook -->
-                   <i class="fa-brands fa-instagram"></i> <!-- Instagram -->
+                    <i class="fa-brands fa-instagram"></i> <!-- Instagram -->
                     <i class="fa-brands fa-twitter"></i> <!-- Twitter -->
                 </div>
             </div>
@@ -474,46 +578,22 @@
     </footer>
 
     <script>
-        // Carousel Functionality
-        const carousel = document.getElementById('carousel');
-        const slides = carousel.children;
-        const prev = document.getElementById('prev');
-        const next = document.getElementById('next');
-        let currentIndex = 0;
-
-        function showSlide(index) {
-            carousel.style.transform = `translateX(-${index * 100}%)`;
+        // Toggle Notification Dropdown
+        function toggleNotifications() {
+            const dropdown = document.getElementById('notificationDropdown');
+            dropdown.classList.toggle('active');
         }
 
-        prev.addEventListener('click', () => {
-            currentIndex = (currentIndex > 0) ? currentIndex - 1 : slides.length - 1;
-            showSlide(currentIndex);
-        });
-
-        next.addEventListener('click', () => {
-            currentIndex = (currentIndex < slides.length - 1) ? currentIndex + 1 : 0;
-            showSlide(currentIndex);
-        });
-
-        // Fade-in Animation on Scroll
-        const fadeElements = document.querySelectorAll('.fade-in');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('fade-in');
-                }
-            });
-        }, { threshold: 0.5 });
-
-        fadeElements.forEach(element => {
-            observer.observe(element);
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (event) => {
+            const dropdown = document.getElementById('notificationDropdown');
+            const bellIcon = document.querySelector('.notification-bell');
+            if (!bellIcon.contains(event.target)) {
+                dropdown.classList.remove('active');
+            }
         });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  </body>
 </body>
 
 </html>
-
- 
-

@@ -16,7 +16,6 @@
                                 <th scope="col">Id</th>
                                 <th scope="col">Title</th>
                                 <th scope="col">Description</th>
-                                <th scope="col">Image</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -26,9 +25,7 @@
                                 <th scope="row">{{$item->id}}</th>
                                 <td>{{$item->title1}}</td>
                                 <td>{{$item->description1}}</td>
-                                <!-- <td><img src="{{asset ('$item->image1')}}" alt=""></td> -->
-                                <td><img src="{{ asset('storage/' . $item->image1) }}" width='70px' alt="Image">
-                                </td>
+                                
                                 <td><a class="btn btn-warning" href="#">Edit</a>
                                     <a class="btn btn-danger" href="#">Delete</a>
                                 </td>
