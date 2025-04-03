@@ -28,7 +28,6 @@
                                 <td>{{$key + 1}}</td>
                                  <td>{{$item->title2}}</td>
                                 <td>{{$item->description2}}</td>
-                                    <td>{{$item->contact}}</td>
 
                                 <!-- <td><img src="{{asset ('$item->image2')}}" alt=""></td> -->
                                 <td><img src="{{ asset('storage/' . $item->image2) }}" width='70px' alt="Image">

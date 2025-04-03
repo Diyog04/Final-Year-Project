@@ -350,10 +350,11 @@
         <section id="details" class="col me-2">
             <h2>Venue Details</h2>
             <ul>
+        
                 <li>Established: 2015</li>
-                <li>{{ $product->contact }}</li>
+                <li>{{ $product->Contact }}</li>
                 <li>Indoor Seating Capacity: 300 per hall (2 halls available)</li>
-                <li>Per Plate Pricing:
+                <li>Per Plate Pricing:  {{$product->Contact}} {{$product->title2}} 
                     <ul>
                         <li>{{ $product->packege }}</li>
                         <li>200 people: Starting at Rs.1900 each</li>
@@ -387,10 +388,10 @@
     </div>
 
     <!-- product/detail.blade.php -->
-<form action="{{ route('initiate.payment', $product->id) }}" method="POST">
-    @csrf
-    <button type="submit" class="btn pay-now-btn">Book With Khalti</button>
-</form>
+    <a href="{{ route('bookings.create', ['product_id' => $product->id]) }}">
+        <button type="submit" class="btn pay-now-btn">Book With Khalti</button>
+    </a>
+
     
     <section id="contact-form">
         <h2>Enquiry</h2>

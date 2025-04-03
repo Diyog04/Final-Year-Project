@@ -11,20 +11,20 @@
                 <li class="breadcrumb-item active">Create</li>
             </ol>
             <div class="card mb-4">
-                <form action="{{ route('product.store')}}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                     @if(Session::has('message'))
-                                    <div class="alert alert-primary" role="alert">
-                                        {{session::get('message')}}
-                                    </div>
-
-                                    @endif
+                    @if (Session::has('message'))
+                        <div class="alert alert-primary" role="alert">
+                            {{ session::get('message') }}
+                        </div>
+                    @endif
                     <div class="mb-3 p-3">
                         <label for="title2" class="col-form-label">Card Title:</label>
                         <input type="text" name="title2" class="form-control" id="recipient-name">
 
                         <label for="description2" class="col-form-label">Card Text:</label>
                         <textarea name="description2" class="form-control" id="message-text"></textarea>
+
                         <label class="col-form-label" for="imageUpload2">Upload an image:</label>
                         <input type="file" id="imageUpload" name="imageUpload2" accept="image/*" required>
                         </br>
@@ -41,7 +41,7 @@
                         <label for="events" class="col-form-label">Event types</label>
                         <input type="text" name="events" class="form-control" id="events">
 
-                        
+
                     </div>
                     <button type="submit" class="btn btn-primary w-25">Submit</button>
                 </form>

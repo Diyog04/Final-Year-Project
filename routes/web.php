@@ -11,6 +11,7 @@ use App\Http\Controllers\VendorController;
 use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\BookingController;
 
 
 // Route::get('/', function () {
@@ -67,6 +68,14 @@ Route::get('/admindash', [AdminController::class, 'Admin']);
 // Route::middleware('auth', 'role:user')->group(function () {
 //     Route::get('/userdash', [UserController::class, 'User']);
 // });
+
+
+
+// Booking routes
+Route::get('/bookings/create', [BookingController::class, 'create'])->name('bookings.create');
+Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
+Route::get('/bookings/success', [BookingController::class, 'success'])->name('bookings.success');
+
 
 
 // payment

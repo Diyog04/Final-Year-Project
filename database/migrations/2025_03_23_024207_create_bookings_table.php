@@ -7,18 +7,23 @@ class CreateBookingsTable extends Migration
 {
     public function up()
     {
-        Schema::create('bookings', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('product_id'); // Foreign key for the product
-            $table->decimal('total_price', 10, 2); // Total price of the booking
-            $table->string('status')->default('pending'); // Booking status
-            $table->timestamps();
-
-            // Foreign key constraint
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-        });
+        if (!Schema::hasTable('bookings')) {
+            Schema::create('bookings', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('customer_id')->constrained('users')->onDelete('cascade');
+                $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
+                $table->decimal('total_price', 10, 2);
+                $table->string('status')->default('pending');
+                $table->timestamps();
+            });
+        }
     }
-
+    
+    /**
+    * Reverse the migrations.
+    *
+    * @return void
+    */
     public function down()
     {
         Schema::dropIfExists('bookings');
