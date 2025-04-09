@@ -13,17 +13,13 @@
             @csrf
             <!-- Product Selection -->
             <div class="mb-3">
-                <label for="product_id" class="form-label">Select Product</label>
-                <select class="form-control" id="product_id" name="product_id" required>
-                    <option value="">Select a product</option>
-                    @foreach ($products as $product)
-                        <option value="{{ $product->id }}" {{ isset($productId) && $productId == $product->id ? 'selected' : '' }}>
-                            {{ $product->name }} - ${{ $product->price }}
-                        </option>
-                    @endforeach
-                </select>
+                <!-- Visible product name display -->
+                <h3>Selected Venue: {{ $product->title2 }}</h3>
+                
+                <!-- Hidden fields for form submission -->
+                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                <input type="hidden" name="product_name" value="{{ $product->title2 }}">
             </div>
-        
             <!-- Customer Name -->
             <div class="mb-3">
                 <label for="customer_name" class="form-label">Name</label>
@@ -44,12 +40,12 @@
         
             <!-- Total Price -->
             <div class="mb-3">
-                <label for="total_price" class="form-label">Total Price</label>
-                <input type="number" class="form-control" id="total_price" name="total_price" step="0.01" required>
+                <label for="total_price" class="form-label">Advance Amount: <strong class="text-danger">25,000</strong></label>
+                <input type="hidden" class="form-control" id="total_price" value="25000" name="total_price" step="0.01" required>
             </div>
         
             <!-- Submit Button -->
-            <button type="submit" class="btn btn-primary">Submit Booking</button>
+            <button type="submit" class="btn btn-primary">Confirm Booking</button>
         </form>
     </div>
 </body>

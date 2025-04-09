@@ -130,6 +130,85 @@
             border-bottom: none;
         }
 
+
+        .notification-dropdown {
+    width: 350px;
+    max-height: 500px;
+    overflow-y: auto;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    z-index: 1000;
+    display: none;
+}
+
+.notification-header {
+    padding: 12px 16px;
+    font-weight: bold;
+    border-bottom: 1px solid #eee;
+}
+
+.notification-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.notification-item {
+    padding: 12px 16px;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.notification-item:hover {
+    background-color: #f9f9f9;
+}
+
+.confirmed-notification {
+    border-left: 3px solid #4CAF50;
+}
+
+.cancelled-notification {
+    border-left: 3px solid #F44336;
+}
+
+.pending-notification {
+    border-left: 3px solid #FFC107;
+}
+
+.notification-content h3 {
+    margin: 0 0 4px 0;
+    font-size: 14px;
+}
+
+.notification-meta {
+    margin: 0;
+    font-size: 12px;
+    color: #666;
+}
+
+.notification-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #F44336;
+    color: white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notification-icon {
+    position: relative;
+    margin-right: 20px;
+}
+
         /* Hero Section */
         .carousel {
             position: relative;
@@ -431,6 +510,10 @@
         .fade-in {
             animation: fadeInUp 1s ease-out;
         }
+
+        .dropdown-item:hover {
+            background: gray;
+        }
     </style>
 </head>
 
@@ -439,30 +522,90 @@
     <header>
         <div class="logo">VenueSathi</div>
         <nav>
-        <div class="notification-bell" onclick="toggleNotifications()">
-                <i class="fas fa-bell"></i>
-            </div>
-            <a href="/">Home</a>
-            <a href="/about">About</a>
-            <a href="/blog">Blog</a>
-            <a href="/login">Login</a>
-            
-        </nav>
-        <!-- Notification Dropdown -->
-        <div class="notification-dropdown" id="notificationDropdown">
+            <ul class="navbar-nav d-flex flex-row align-items-center" style="gap: 20px;">
         
-            <div class="notification-header">Notifications</div>
-            <ul class="notification-list">
-            
-                <li class="notification-item">
-                @foreach ($products as $index => $call)
-                <h3>{{ $call->title1 }}</h3>
-                <p>{{ $call->description1 }}</p>
-                </li>
+                <!-- Other nav links -->
+                <li class="nav-item"><a class="nav-link text-white" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="/about">About</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="/blog">Blog</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="/login">Login</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="{{ route('user.recent-bookings') }}">My Bookings</a></li>
+                <!-- Notification -->
+                <li class="nav-item dropdown">
+                    <button class="btn nav-link position-relative text-white" id="notificationDropdownBtn" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-bell fa-lg"></i>
+                        @php
+                            $unreadCount = auth()->user()->unreadNotifications->count() + count($calls);
+                        @endphp
+                        @if($unreadCount > 0)
+                        <span class="badge bg-danger position-absolute top-0 start-100 translate-middle">
+                            {{ $unreadCount }}
+                        </span>
+                        @endif
+                    </button>
                 
+                    <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="notificationDropdownBtn"
+                        style="width: 350px; max-height: 500px; overflow-y: auto; background-color: rgba(0, 0, 0, 0.9); color: white; border: none;">
+                        <li class="px-3 py-2 d-flex justify-content-between align-items-center border-bottom border-secondary">
+                            <span>Notifications ({{ $unreadCount }})</span>
+                            <form action="{{ route('notifications.markAllRead') }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-link p-0 text-white text-decoration-none">Mark All</button>
+                            </form>
+                        </li>
+                
+                        <!-- Booking Status Notifications -->
+                        @forelse(auth()->user()->unreadNotifications as $notification)
+                            <li>
+                                <a href="{{ $notification->data['url'] }}" class="dropdown-item text-white">
+                                    <div class="d-flex align-items-start">
+                                        <div class="flex-grow-1">
+                                            <strong>{{ $notification->data['message'] }}</strong><br>
+                                            <small class="text-light">
+                                                {{ $notification->data['product_name'] }}
+                                                <span class="float-end">{{ \Carbon\Carbon::parse($notification->data['time'])->diffForHumans() }}</span>
+                                            </small>
+                                        </div>
+                                        <form action="{{ route('notifications.markAsRead', $notification->id) }}" method="POST" class="ms-2">
+                                            @csrf
+                                            <button type="submit" class="btn btn-sm p-0 text-white-50"><i class="fas fa-times"></i></button>
+                                        </form>
+                                    </div>
+                                </a>
+                            </li>
+                        @empty
+                        @endforelse
+                
+                        <!-- Call Notifications -->
+                        @forelse ($calls as $call)
+                            <li>
+                                <a href="#" class="dropdown-item text-white">
+                                    <div class="d-flex align-items-start">
+                                        <div class="flex-grow-1">
+                                            <strong>{{ $call->title1 }}</strong><br>
+                                            <small class="text-light">{{ $call->description1 }}</small>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        @empty
+                        @endforelse
+                
+                        @if(auth()->user()->unreadNotifications->count() == 0 && count($calls) == 0)
+                            <li><span class="dropdown-item text-muted">No new notifications</span></li>
+                        @endif
+                    </ul>
+                </li>
+
             </ul>
-            @endforeach
-        </div>
+        </nav>
+        
+        
+        
+        <!-- Notification Dropdown -->
+
+        
+
     </header>
 
     <!-- Hero Section with Carousel -->
@@ -577,23 +720,29 @@
         </div>
     </footer>
 
+    
     <script>
-        // Toggle Notification Dropdown
         function toggleNotifications() {
             const dropdown = document.getElementById('notificationDropdown');
-            dropdown.classList.toggle('active');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
         }
-
-        // Close dropdown when clicking outside
-        document.addEventListener('click', (event) => {
+    
+        // Close when clicking outside
+        document.addEventListener('click', function(event) {
             const dropdown = document.getElementById('notificationDropdown');
-            const bellIcon = document.querySelector('.notification-bell');
-            if (!bellIcon.contains(event.target)) {
-                dropdown.classList.remove('active');
+            const bell = document.querySelector('.notification-bell');
+            
+            // Check if click is outside both dropdown and bell
+            if (!dropdown.contains(event.target) && !bell.contains(event.target)) {
+                dropdown.style.display = 'none';
             }
         });
     </script>
+    
+   
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    
 </body>
 
 </html>

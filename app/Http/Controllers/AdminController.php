@@ -6,7 +6,11 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Models\Slider;
 use App\Models\Product;
+use Illuminate\Notifications\Notification;
+use App\Notifications\BookingStatusUpdated;
+use Illuminate\Support\Facades\Log;
 use App\Models\Call;
+use App\Models\Booking;
 
 class AdminController extends Controller
 {
@@ -58,7 +62,44 @@ class AdminController extends Controller
     
     
     
+
+  /*================================bookings============================*/
+    public function index()
+{
+    $bookings = Booking::with('product')->latest()->get(); // Assuming you have a relationship with Product
+    return view('admin.booking', compact('bookings'));
+}
     
+
+
+public function updateStatus(Request $request, Booking $booking)
+{
+    // Validate the incoming request status
+    $request->validate([
+        'status' => 'required|in:pending,confirmed,cancelled',
+    ]);
+
+    // Only proceed if the status has changed
+    if ($booking->status !== $request->status) {
+        $oldStatus = $booking->status;
+        
+        // Update the booking status
+        $booking->update(['status' => $request->status]);
+
+        // Check if the booking has an associated user (customer)
+        if ($booking->user) {
+            // Notify the user about the status update
+            $booking->user->notify(new BookingStatusUpdated($booking, $oldStatus));
+        } else {
+            // Log if no user is associated with the booking
+            Log::warning('Booking has no associated user.', ['booking_id' => $booking->id]);
+        }
+    }
+
+    return back()->with('success', 'Booking status updated!');
+}
+
+
     /*================================news============================*/
     
     // Store a newly created resource in storage

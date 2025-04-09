@@ -356,7 +356,7 @@
                 <li>Indoor Seating Capacity: 300 per hall (2 halls available)</li>
                 <li>Per Plate Pricing:  {{$product->Contact}} {{$product->title2}} 
                     <ul>
-                        <li>{{ $product->packege }}</li>
+                        <li>{{ $product->Packege }}</li>
                         <li>200 people: Starting at Rs.1900 each</li>
                         <li>300 people: Starting at Rs.1800 each</li>
                         <li>500 people: Starting at Rs.1600 each</li>

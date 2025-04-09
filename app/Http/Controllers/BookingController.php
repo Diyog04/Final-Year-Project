@@ -11,7 +11,9 @@ class BookingController extends Controller
 {
    
         public function create(Request $request)
+
         {
+
             // Fetch the product_id from the query parameter
             $productId = $request->query('product_id');
     
@@ -28,11 +30,18 @@ class BookingController extends Controller
                 'products' => $products,
             ]);
         }
+
+        
    
 
     // Handle form submission
     public function store(Request $request)
     {
+        // Check if the user is authenticated
+        if (!auth()->check()) {
+            return redirect()->route('login')->with('error', 'You must be logged in to make a booking.');
+        }
+    
         // Validate the request
         $request->validate([
             'product_id' => 'required|exists:products,id',
@@ -41,21 +50,30 @@ class BookingController extends Controller
             'customer_phone' => 'required|string|max:20',
             'total_price' => 'required|numeric|min:0',
         ]);
+    
+        try {
 
-        // Create a new booking
-        Booking::create([
-            'product_id' => $request->product_id,
-            'customer_name' => $request->customer_name,
-            'customer_email' => $request->customer_email,
-            'customer_phone' => $request->customer_phone,
-            'total_price' => $request->total_price,
-            'status' => 'pending', // Default status
-            'payment_id' => null, // Payment ID will be updated after payment
-        ]);
-
-        // Redirect to a success page or payment gateway
-        return redirect()->route('bookings.success')->with('message', 'Booking created successfully!');
+            // Create a new booking
+            Booking::create([
+                'product_id' => $request->product_id,
+                'customer_id' => auth()->user()->id,
+                'customer_name' => $request->customer_name,
+                'customer_email' => $request->customer_email,
+                'customer_phone' => $request->customer_phone,
+                'total_price' => $request->total_price,
+                'status' => 'pending', // Default status
+                'payment_id' => null, // Payment ID will be updated after payment
+            ]);
+    
+            // Redirect to a success page or payment gateway
+            return redirect()->route('bookings.success')->with('message', 'Booking created successfully!');
+            
+        } catch (\Exception $e) {
+            // If there is an error during the creation process
+            return redirect()->back()->with('error', 'There was an error creating the booking: ' . $e->getMessage());
+        }
     }
+    
 
     // Show success page
     public function success()

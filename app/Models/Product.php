@@ -15,4 +15,9 @@ class Product extends Model
         'contact',
         'packege',
     ];
+
+    public function bookings()
+{
+    return $this->hasMany(Booking::class);
+}
 }

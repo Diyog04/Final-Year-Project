@@ -14,6 +14,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\BookingController;
 
 
+
 // Route::get('/', function () {
 //     return view('welcome');
 // });
@@ -78,13 +79,36 @@ Route::get('/bookings/success', [BookingController::class, 'success'])->name('bo
 
 
 
+Route::get('/admin/bookings', [AdminController::class, 'index'])->name('admin.bookings.index');
+Route::patch('/bookings/{booking}/update-status', [AdminController::class, 'updateStatus'])
+    ->name('bookings.update-status');
+
+
+    // Notifications
+    // Mark single notification as read
+Route::post('/notifications/{notification}/mark-as-read', function ($notificationId) {
+    auth()->user()->notifications()->where('id', $notificationId)->update(['read_at' => now()]);
+    return back();
+})->name('notifications.markAsRead');
+
+// Mark all notifications as read
+Route::post('/notifications/mark-all-read', function () {
+    auth()->user()->unreadNotifications->markAsRead();
+    return back();
+})->name('notifications.markAllRead');
+
+
+
+
 // payment
 // Product detail route
 Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.detail');
 
 // Payment routes
-Route::post('/initiate-payment/{productId}', [PaymentController::class, 'initiatePayment'])->name('initiate.payment');
-Route::get('/payment-success', [PaymentController::class, 'handlePaymentSuccess'])->name('payment.success');
+
+Route::post('/payment/initiate/{bookingId}', [PaymentController::class, 'initiatePayment'])->name('payment.initiate');
+Route::get('/payment/success/callback', [PaymentController::class, 'handlePaymentSuccess'])->name('payment.success.callback');
+
 
 
 
@@ -94,9 +118,13 @@ Route::middleware('auth','role:vender')->group(function () {
     Route::get('/venderdash', [VenderController::class, 'Vender']);
 });
 
-Route::middleware('auth','role:user')->group(function () {
+Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/userdash', [UserController::class, 'User']);
 });
+
+Route::get('/user/recent-bookings', [UserController::class, 'showRecentBookings'])->name('user.recent-bookings');
+
+
 
 Route::post('to-become-slider', [SliderController::class, 'Slider'])->name('slider.store');
 Route::post('to-become-call', [CallController::class, 'Call'])->name('call.store');

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 
 class Booking extends Model
 {
@@ -26,9 +27,9 @@ class Booking extends Model
     {
         return $this->belongsTo(Product::class);
     }
-
-    public function User()
+    public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'customer_id'); // <-- specify custom FK
     }
+    
 }
