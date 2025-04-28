@@ -15,25 +15,15 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('users')->insert([
-            'name' => 'Diyog',  // Directly assigning the string without Str::
-            'email' => 'user@user.com',  // Direct string assignment
-            'password' => Hash::make('12345678'),  // Correct usage of Hash facade
-            'role' => 'User'  // Assigning a string directly for the role
-        ]);
+      
 
         DB::table('users')->insert([
-            'name' => 'Rochak',  // Directly assigning the string without Str::
-            'email' => 'rochak@admin.com',  // Direct string assignment
-            'password' => Hash::make('23456789'),  // Correct usage of Hash facade
+            'name' => 'Admin',  // Directly assigning the string without Str::
+            'email' => 'admin@admin.com',  // Direct string assignment
+            'password' => Hash::make('123456789'),  // Correct usage of Hash facade
             'role' => 'admin'  // Assigning a string directly for the role
         ]);
 
-        DB::table('users')->insert([
-            'name' => 'Pradip',  // Directly assigning the string without Str::
-            'email' => 'pradip@vender.com',  // Direct string assignment
-            'password' => Hash::make('34567890'),  // Correct usage of Hash facade
-            'role' => 'vender'  // Assigning a string directly for the role
-        ]);
+       
     }
 }

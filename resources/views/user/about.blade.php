@@ -1,14 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - VenueSathi</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    @include('user/head')
     <style>
         /* General Styles */
         body {
@@ -18,6 +11,7 @@
             background-color: #f9f9f9;
             color: #333;
             scroll-behavior: smooth;
+            line-height: 1.6;
         }
 
         header {
@@ -51,11 +45,27 @@
             text-decoration: none;
             font-size: 1rem;
             font-weight: 500;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
         header nav a:hover {
             color: #ffdd57;
+        }
+
+        header nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #ffdd57;
+            transition: width 0.3s ease;
+        }
+
+        header nav a:hover::after {
+            width: 100%;
         }
 
         .container {
@@ -65,136 +75,317 @@
             padding: 20px;
         }
 
-        /* Header Styles */
-        .header {
-            background: #810505;
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(129, 5, 5, 0.8), rgba(129, 5, 5, 0.9)), 
+                        url('https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
             color: #fff;
-            padding: 100px 0;
+            padding: 150px 0;
             text-align: center;
             position: relative;
-            overflow: hidden;
+            margin-bottom: 40px;
         }
 
-        .header h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
             animation: fadeIn 1.5s ease-out;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
         }
 
-        .header p {
-            font-size: 1.2rem;
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto;
             animation: fadeIn 2s ease-out;
         }
 
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.3);
-            z-index: 1;
-        }
-
-        .header .container {
-            position: relative;
-            z-index: 2;
-        }
-
-        /* About Section Styles */
+        /* About Section */
         .about-section {
-            padding: 60px 0;
+            padding: 80px 0;
             background: #fff;
         }
 
-        .about-section h2 {
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title h2 {
             font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: #007BFF;
-            animation: fadeInUp 1s ease-out;
+            color: #810505;
+            margin-bottom: 15px;
+            display: inline-block;
         }
 
-        .about-section p {
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-            animation: fadeInUp 1.5s ease-out;
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 3px;
+            background: #810505;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
-        .about-section .highlight {
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .highlight {
             color: #810505;
             font-weight: 600;
         }
 
-        /* Team Section Styles */
-        .team-section {
-            padding: 60px 0;
-            background: #f4f4f4;
+        .mission-vision {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
         }
 
-        .team-section h2 {
-            font-size: 2.5rem;
+        .mission-card, .vision-card {
+            background: #f5f5f5;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .mission-card:hover, .vision-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .mission-card h3, .vision-card h3 {
+            font-size: 1.8rem;
+            color: #810505;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .mission-card h3::after, .vision-card h3::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: #810505;
+            bottom: -8px;
+            left: 0;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: #810505;
+            color: white;
+            padding: 80px 0;
             text-align: center;
-            margin-bottom: 40px;
-            color: #007BFF;
-            animation: fadeInUp 1s ease-out;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .stat-item {
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #ffdd57;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Team Section */
+        .team-section {
+            padding: 80px 0;
+            background: #f9f9f9;
         }
 
         .team-grid {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
         }
 
         .team-member {
             background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
             text-align: center;
-            width: 30%;
-            margin-bottom: 20px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            animation: fadeInUp 1s ease-out;
         }
 
         .team-member:hover {
             transform: translateY(-10px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
         }
 
-        .team-member img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            margin-bottom: 15px;
+        .member-image {
+            height: 300px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .member-image img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            border: 4px solid #007BFF;
+            transition: transform 0.5s ease;
         }
 
-        .team-member h3 {
+        .team-member:hover .member-image img {
+            transform: scale(1.1);
+        }
+
+        .member-info {
+            padding: 25px 20px;
+        }
+
+        .member-info h3 {
             font-size: 1.5rem;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             color: #333;
         }
 
-        .team-member p {
-            font-size: 1rem;
-            color: #777;
+        .member-info p {
+            color: #810505;
+            font-weight: 500;
+            margin-bottom: 15px;
         }
 
-        /* Responsive Styles */
-        @media (max-width: 768px) {
-            .team-member {
-                width: 45%;
-            }
+        .member-social {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
         }
 
-        @media (max-width: 480px) {
-            .team-member {
-                width: 100%;
-            }
+        .member-social a {
+            color: #666;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .member-social a:hover {
+            color: #810505;
+        }
+
+        /* Values Section */
+        .values-section {
+            padding: 80px 0;
+            background: #fff;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .value-card {
+            background: #f9f9f9;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border-top: 4px solid #810505;
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .value-icon {
+            font-size: 2.5rem;
+            color: #810505;
+            margin-bottom: 20px;
+        }
+
+        .value-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: #810505;
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            font-size: 1.1rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: white;
+            color: #810505;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .cta-button:hover {
+            background: #ffdd57;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
 
         /* Footer */
@@ -211,52 +402,67 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 2rem;
+            text-align: left;
         }
 
         footer h3 {
             font-size: 1.5rem;
             font-weight: 600;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        footer h3::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background: white;
+            bottom: -8px;
+            left: 0;
         }
 
         footer p {
             font-size: 1rem;
-            color: #ccc;
-            line-height: 1.5;
+            color: #eee;
+            line-height: 1.6;
+            margin-bottom: 1rem;
         }
 
         footer a {
-            color: #ccc;
+            color: #eee;
             text-decoration: none;
             transition: color 0.3s ease;
+            display: block;
+            margin-bottom: 0.5rem;
         }
 
         footer a:hover {
-            color: #007BFF;
+            color: #ffdd57;
         }
 
         footer .social-links {
             display: flex;
-            justify-content: center;
             gap: 1rem;
             margin-top: 1rem;
         }
 
         footer .social-links a {
-            font-size: 1.5rem;
-            color: #ccc;
+            font-size: 1.2rem;
+            color: #eee;
             transition: color 0.3s ease;
         }
 
         footer .social-links a:hover {
-            color: #007BFF;
+            color: #ffdd57;
         }
 
         footer .footer-bottom {
-            margin-top: 2rem;
-            border-top: 1px solid #444;
-            padding-top: 1rem;
-            font-size: 0.875rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 1.5rem;
+            font-size: 0.9rem;
             color: #ccc;
         }
 
@@ -297,94 +503,227 @@
         .fade-in {
             animation: fadeIn 1s ease-out;
         }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .mission-vision {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 
 <body>
     <!-- Header -->
-    <header>
-        <div class="logo">VenueSathi</div>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/About">About</a>
-            <a href="/blog">Blog</a>
-            <a href="/login">Login</a>
-        </nav>
-    </header>
+    @include('user/header')
 
     <!-- Hero Section -->
-    <header class="header">
+    <section class="hero">
         <div class="container">
-            <h1>About Us</h1>
-            <p>Learn more about our mission, team, and story.</p>
+            <h1>Our Story</h1>
+            <p>Discover the passion and people behind Venue Sathi - your trusted partner in finding the perfect event spaces</p>
         </div>
-    </header>
+    </section>
 
-    <!-- Main Content Section -->
+    <!-- About Section -->
     <section class="about-section">
         <div class="container">
-            <h2>Our Mission</h2>
-            <p>At <span class="highlight">Venue Sathi</span>, our mission is to revolutionize the way people find and book venues. We aim to provide a seamless platform where users can discover affordable venues in their desired locations, making event planning easier and more accessible for everyone.</p>
-            <h2>Who We Are</h2>
-            <p>We are a team of passionate individuals dedicated to making event planning stress-free and enjoyable. With expertise in technology, customer service, and event management, we work tirelessly to ensure that our platform meets the needs of both venue owners and event planners. Our commitment to affordability, transparency, and user satisfaction drives everything we do.</p>
-            <h2>Our Story</h2>
-            <p>Founded in 2024, <span class="highlight">Venue Sathi</span> was born out of a simple idea: to connect people with the perfect venues for their events. Whether it's a wedding, corporate event, or a casual gathering, we understand how challenging it can be to find the right space at the right price. That's why we created a platform that simplifies the process, offering a wide range of venues in estimated locations at affordable rates.</p>
+            <div class="section-title">
+                <h2>Who We Are</h2>
+                <p>Connecting people with perfect venues since 2024</p>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Founded in 2024, <span class="highlight">Venue Sathi</span> began as a simple idea to solve a common problem: finding affordable, quality venues for events shouldn't be so difficult. What started as a small project has grown into Nepal's most trusted venue booking platform, serving thousands of happy customers.</p>
+                    <p>Our team comes from diverse backgrounds in event planning, technology, and hospitality, united by a shared vision to make venue discovery effortless and enjoyable. We understand that every event is unique, and we're committed to helping you find the perfect space that matches your vision and budget.</p>
+                    <p>Today, we partner with hundreds of venues across major cities, offering transparent pricing, verified reviews, and personalized recommendations to ensure your event planning journey is smooth from start to finish.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1527529482837-4698179dc6ce?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Venue Sathi Team">
+                </div>
+            </div>
+            
+            <div class="mission-vision">
+                <div class="mission-card">
+                    <h3>Our Mission</h3>
+                    <p>To revolutionize venue booking by creating a seamless, transparent platform that connects event planners with the perfect spaces while supporting venue owners in showcasing their properties effectively.</p>
+                </div>
+                <div class="vision-card">
+                    <h3>Our Vision</h3>
+                    <p>To become Nepal's most comprehensive venue marketplace, where anyone can easily find, compare, and book event spaces for any occasion, anytime, anywhere.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="section-title">
+                <h2 style="color: white;">By The Numbers</h2>
+                <p style="color: #ffdd57;">Our impact in the venue booking industry</p>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Venues Listed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">10K+</div>
+                    <div class="stat-label">Happy Customers</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Cities Covered</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Customer Support</div>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Team Section -->
     <section class="team-section">
         <div class="container">
-            <h2>Meet Our Team</h2>
+            <div class="section-title">
+                <h2>Meet The Team</h2>
+                <p>The passionate people behind Venue Sathi</p>
+            </div>
+            
             <div class="team-grid">
                 <div class="team-member">
-                    <img src="https://via.placeholder.com/150" alt="John Doe">
-                    <h3>John Doe</h3>
-                    <p>CEO & Founder</p>
+                    <div class="member-image">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="John Doe">
+                    </div>
+                    <div class="member-info">
+                        <h3>John Doe</h3>
+                        <p>CEO & Founder</p>
+                        <div class="member-social">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
                 </div>
+                
                 <div class="team-member">
-                    <img src="https://via.placeholder.com/150" alt="Jane Smith">
-                    <h3>Jane Smith</h3>
-                    <p>Lead Developer</p>
+                    <div class="member-image">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Jane Smith">
+                    </div>
+                    <div class="member-info">
+                        <h3>Jane Smith</h3>
+                        <p>Chief Technology Officer</p>
+                        <div class="member-social">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
                 </div>
+                
                 <div class="team-member">
-                    <img src="https://via.placeholder.com/150" alt="Emily Johnson">
-                    <h3>Emily Johnson</h3>
-                    <p>Designer</p>
+                    <div class="member-image">
+                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Emily Johnson">
+                    </div>
+                    <div class="member-info">
+                        <h3>Emily Johnson</h3>
+                        <p>Head of Customer Experience</p>
+                        <div class="member-social">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Michael Brown">
+                    </div>
+                    <div class="member-info">
+                        <h3>Michael Brown</h3>
+                        <p>Venue Partnerships Manager</p>
+                        <div class="member-social">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div>
-                <h3>VenueSathi</h3>
-                <p>Your one-stop solution for booking the perfect venue for any event.</p>
+    <!-- Values Section -->
+    <section class="values-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Core Values</h2>
+                <p>The principles that guide everything we do</p>
             </div>
-            <div>
-                <h3>Quick Links</h3>
-                <a href="/">Home</a><br>
-                <a href="/about">About</a><br>
-                <a href="#">Blog</a><br>
-                <a href="#">Contact</a>
-            </div>
-            <div>
-                <h3>Follow Us</h3>
-                <div class="social-links">
-                    <i class="fa-brands fa-facebook"></i> <!-- Facebook -->
-                    <i class="fa-brands fa-instagram"></i> <!-- Instagram -->
-                    <i class="fa-brands fa-twitter"></i> <!-- Twitter -->
+            
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-hand-holding-heart"></i>
+                    </div>
+                    <h3>Customer First</h3>
+                    <p>We prioritize our customers' needs above all else, ensuring every interaction leaves them feeling valued and supported.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Innovation</h3>
+                    <p>We constantly seek better ways to solve problems and improve the venue booking experience for everyone.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <h3>Transparency</h3>
+                    <p>Honest pricing, genuine reviews, and clear communication form the foundation of all our relationships.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Community</h3>
+                    <p>We believe in building strong connections between venue owners and event planners to create a thriving ecosystem.</p>
                 </div>
             </div>
         </div>
-        <div class="footer-bottom">
-            &copy; 2025 VenueSathi. All rights reserved.
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Find Your Perfect Venue?</h2>
+            <p>Join thousands of happy customers who've found their ideal event spaces through Venue Sathi</p>
+            <a href="/" class="cta-button">Browse Venues Now</a>
         </div>
-    </footer>
+    </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <!-- Footer -->
+    @include('user/footer')
 </body>
-
 </html>

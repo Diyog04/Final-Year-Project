@@ -9,22 +9,49 @@ use App\Models\Call;
 
 class IndexController extends Controller
 {
-    public function Index()
+    public function index()
     {
+        // Fetch all product records
         $products = Product::all();
+    
+        // Fetch all call records
         $calls = Call::all();
-        return view('user/index', compact('products', 'calls'));
+    
+        // Fetch unique locations from the products table
+        $locations = Product::pluck('location')->unique();
+    
+        // Pass everything to the view
+        return view('user.index', compact('products', 'calls', 'locations'));
     }
+
+    public function search(Request $request)
+    {
+        $query = Product::query();
+    
+        if ($request->filled('location')) {
+            $query->where('location', $request->location);
+        }
+    
+        $products = $query->get(); // use 'products' instead of 'events'
+        $calls = Call::all(); // add this if your view expects it
+        $locations = Product::pluck('location')->unique();
+    
+        return view('user.index', compact('products', 'calls', 'locations'));
+    }
+    
+    
 
    
 
     public function About()
     {
-        return view('user/about');
+        $calls = Call::all();
+        return view('user/about', compact('calls'));
     }
     public function Blog()
     {
-        return view('user/blog');
+        $calls = Call::all();
+        return view('user/blog', compact('calls'));
     }
 
     public function Shop()

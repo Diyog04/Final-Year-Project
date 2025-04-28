@@ -44,10 +44,16 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    
+
     public function bookings()
 {
     return $this->hasMany(Booking::class);
+}
+
+// In User model
+public function calls()
+{
+    return $this->hasMany(Call::class)->withDefault([]);
 }
 
 }

@@ -13,6 +13,7 @@ class CreateBookingsTable extends Migration
                 $table->foreignId('customer_id')->constrained('users')->onDelete('cascade');
                 $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
                 $table->decimal('total_price', 10, 2);
+                $table->date('booking_date');
                 $table->string('status')->default('pending');
                 $table->timestamps();
             });

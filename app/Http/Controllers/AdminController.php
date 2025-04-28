@@ -11,6 +11,7 @@ use App\Notifications\BookingStatusUpdated;
 use Illuminate\Support\Facades\Log;
 use App\Models\Call;
 use App\Models\Booking;
+use App\Models\Payment;
 
 class AdminController extends Controller
 {
@@ -97,6 +98,20 @@ public function updateStatus(Request $request, Booking $booking)
     }
 
     return back()->with('success', 'Booking status updated!');
+}
+
+
+
+public function showPayments()
+{
+    $payments = Payment::whereHas('booking', function ($query) {
+        $query->where('customer_id', Auth::id());
+    })
+    ->where('status', 'paid')
+    ->latest()
+    ->get();
+
+    return view('user.recent-payment', compact('payments'));
 }
 
 

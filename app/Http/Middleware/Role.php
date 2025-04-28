@@ -9,18 +9,12 @@ use Illuminate\Support\Facades\Auth;
 
 class Role
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
     public function handle(Request $request, Closure $next, $role): Response
     {
-        if($request->user()->role !== $role){
-            return redirect('errors');
+        if ($request->user()->role !== $role) {
+            return redirect('errors'); // You can create a custom view at /resources/views/errors.blade.php
         }
-       
-        return $next($request);
 
+        return $next($request);
     }
 }

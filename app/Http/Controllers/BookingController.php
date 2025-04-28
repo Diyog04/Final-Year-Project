@@ -48,6 +48,7 @@ class BookingController extends Controller
             'customer_name' => 'required|string|max:255',
             'customer_email' => 'required|email|max:255',
             'customer_phone' => 'required|string|max:20',
+            'booking_date' => 'required|date',
             'total_price' => 'required|numeric|min:0',
         ]);
     
@@ -62,11 +63,12 @@ class BookingController extends Controller
                 'customer_phone' => $request->customer_phone,
                 'total_price' => $request->total_price,
                 'status' => 'pending', // Default status
+                'booking_date' => $request->booking_date,
                 'payment_id' => null, // Payment ID will be updated after payment
             ]);
     
             // Redirect to a success page or payment gateway
-            return redirect()->route('bookings.success')->with('message', 'Booking created successfully!');
+            return redirect()->route('bookings.success')->with('message', 'Booking is awaiting payment confirmation!');
             
         } catch (\Exception $e) {
             // If there is an error during the creation process

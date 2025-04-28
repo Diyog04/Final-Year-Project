@@ -18,4 +18,11 @@ class CallController extends Controller
 
         return redirect()->back()->with('success', 'Application submitted successfully!');
     }
+
+    public function blog()
+{
+    return view('user.blog', [
+        'calls' => $this->getCalls() ?? [], // Ensure you always return an array
+    ]);
+}
 }

@@ -19,6 +19,7 @@ class Booking extends Model
         'customer_name',
         'customer_email',
         'customer_phone',
+        'booking_date',
         'payment_id',
     ];
 
@@ -31,5 +32,9 @@ class Booking extends Model
     {
         return $this->belongsTo(User::class, 'customer_id'); // <-- specify custom FK
     }
+    public function payment()
+{
+    return $this->hasOne(Payment::class);
+}
     
 }

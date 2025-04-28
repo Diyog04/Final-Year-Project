@@ -14,10 +14,24 @@ class Product extends Model
         'image2',
         'contact',
         'packege',
+        'amenity',
+        'location',
+        'latitude',   
+    'longitude',
+
+    ];
+    protected $casts = [
+        'packege' => 'array',
+        'amenity' => 'array',
     ];
 
     public function bookings()
 {
     return $this->hasMany(Booking::class);
+}
+
+public function images()
+{
+    return $this->hasMany(VenueImage::class, 'venue_id');
 }
 }

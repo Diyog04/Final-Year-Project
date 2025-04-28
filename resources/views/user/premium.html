@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Wedding Decor Package | DecorWedTayari</title>
+    <style>
+        :root {
+            --primary: #9c27b0; /* Premium purple */
+            --secondary: #3f51b5; /* Royal blue */
+            --accent: #ff9800; /* Gold accent */
+            --light: #faf5ff;
+            --dark: #1a1a2e;
+        }
+        
+        body {
+            font-family: 'Playfair Display', 'Poppins', sans-serif;
+            line-height: 1.7;
+            color: var(--dark);
+            background-color: var(--light);
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .package-header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 50px 30px;
+            background: linear-gradient(135deg, rgba(156,39,176,0.1), rgba(63,81,181,0.1));
+            border-radius: 20px;
+            border: 1px solid rgba(156,39,176,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .package-header:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+        
+        .package-header:after {
+            content: "PREMIUM";
+            position: absolute;
+            top: 20px;
+            right: -60px;
+            background: var(--accent);
+            color: white;
+            padding: 5px 80px;
+            transform: rotate(45deg);
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        .package-header h1 {
+            color: var(--secondary);
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .package-header p {
+            color: #555;
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto;
+            font-weight: 500;
+        }
+        
+        .package-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .package-details {
+            flex: 1;
+            min-width: 350px;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            border: 1px solid rgba(156,39,176,0.1);
+            position: relative;
+        }
+        
+        .package-details:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+        
+        .package-details h2 {
+            color: var(--primary);
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 15px;
+            margin-top: 0;
+            font-size: 2.2rem;
+            display: inline-block;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .package-features {
+            margin-bottom: 40px;
+        }
+        
+        .package-features h3 {
+            color: var(--secondary);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .package-features h3 svg {
+            margin-right: 15px;
+            color: var(--primary);
+            font-size: 1.4rem;
+        }
+        
+        .feature-list {
+            list-style-type: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .feature-list li {
+            padding: 15px 20px 15px 50px;
+            position: relative;
+            margin-bottom: 8px;
+            background: rgba(156,39,176,0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(156,39,176,0.1);
+            transition: all 0.4s;
+            font-weight: 500;
+        }
+        
+        .feature-list li:hover {
+            background: rgba(156,39,176,0.1);
+            transform: translateX(10px);
+            box-shadow: 5px 5px 15px rgba(156,39,176,0.1);
+        }
+        
+        .feature-list li:before {
+            content: "✓";
+            color: var(--primary);
+            position: absolute;
+            left: 20px;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .premium-feature {
+            background: linear-gradient(135deg, rgba(156,39,176,0.1), rgba(63,81,181,0.1)) !important;
+            border: 1px dashed var(--primary) !important;
+            position: relative;
+        }
+        
+        .premium-feature:after {
+            content: "Premium";
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            background: var(--primary);
+            color: white;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+        
+        .decoration-showcase {
+            margin-top: 60px;
+        }
+        
+        .showcase-title {
+            text-align: center;
+            color: var(--secondary);
+            margin-bottom: 50px;
+            position: relative;
+            font-size: 2.5rem;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .showcase-title:after {
+            content: "";
+            display: block;
+            width: 150px;
+            height: 5px;
+            background: var(--accent);
+            margin: 20px auto 0;
+            border-radius: 3px;
+        }
+        
+        .decoration-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 35px;
+        }
+        
+        .decoration-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.5s ease;
+            position: relative;
+        }
+        
+        .decoration-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        
+        .decoration-card:hover .decoration-img {
+            transform: scale(1.1);
+        }
+        
+        .decoration-img {
+            height: 300px;
+            width: 100%;
+            object-fit: cover;
+            border-bottom: 5px solid var(--accent);
+            transition: all 0.5s ease;
+        }
+        
+        .decoration-info {
+            padding: 30px;
+        }
+        
+        .decoration-info h4 {
+            margin: 0 0 15px 0;
+            color: var(--secondary);
+            font-size: 1.5rem;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .decoration-info p {
+            color: #666;
+            margin: 0;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        .package-gallery {
+            flex: 1;
+            min-width: 350px;
+        }
+        
+        .main-image {
+            width: 100%;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            border: 3px solid white;
+            max-height: 500px;
+            object-fit: cover;
+            transition: all 0.3s;
+        }
+        
+        .main-image:hover {
+            transform: scale(1.02);
+        }
+        
+        .thumbnails {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        .thumbnail {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.4s;
+            border: 3px solid white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+        
+        .thumbnail:hover {
+            transform: scale(1.08);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            border-color: var(--primary);
+        }
+        
+        .cta-section {
+            text-align: center;
+            margin: 80px 0 60px;
+            padding: 60px 30px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+        }
+        
+        .cta-section:before {
+            content: "";
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            right: -15px;
+            bottom: -15px;
+            background: linear-gradient(135deg, 
+                          rgba(156,39,176,0.3), 
+                          rgba(63,81,181,0.3));
+            z-index: -1;
+            border-radius: 30px;
+            filter: blur(5px);
+        }
+        
+        .cta-section h2 {
+            font-size: 2.8rem;
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .cta-section p {
+            font-size: 1.4rem;
+            max-width: 800px;
+            margin: 0 auto 35px;
+            opacity: 0.9;
+        }
+        
+        .cta-button {
+            background: var(--accent);
+            color: var(--dark);
+            border: none;
+            padding: 22px 55px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.4s;
+            display: inline-flex;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .cta-button:after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(255,255,255,0.3), rgba(255,255,255,0));
+            opacity: 0;
+            transition: all 0.4s;
+        }
+        
+        .cta-button:hover:after {
+            opacity: 1;
+        }
+        
+        .cta-button svg {
+            margin-right: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+        }
+        
+        .contact-info {
+            margin-top: 35px;
+            font-size: 1.3rem;
+        }
+        
+        .contact-info i {
+            margin: 0 10px;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            margin-top: 50px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 700;
+            padding: 15px 30px;
+            border-radius: 10px;
+            transition: all 0.4s;
+            background: rgba(156,39,176,0.1);
+            border: 1px solid rgba(156,39,176,0.2);
+            font-size: 1.1rem;
+        }
+        
+        .back-link:hover {
+            background: rgba(156,39,176,0.2);
+            text-decoration: none;
+            transform: translateX(-10px);
+        }
+        
+        .back-link svg {
+            margin-right: 12px;
+            font-size: 1.2rem;
+        }
+        
+        .testimonial-section {
+            margin: 80px 0;
+            padding: 50px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .testimonial-title {
+            text-align: center;
+            color: var(--secondary);
+            margin-bottom: 50px;
+            font-size: 2.2rem;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background: var(--light);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(156,39,176,0.2);
+            position: relative;
+        }
+        
+        .testimonial-card:before {
+            content: """;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 5rem;
+            color: rgba(156,39,176,0.1);
+            font-family: serif;
+            line-height: 1;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+            border: 2px solid var(--accent);
+        }
+        
+        .author-info h5 {
+            margin: 0;
+            color: var(--secondary);
+            font-size: 1.2rem;
+        }
+        
+        .author-info p {
+            margin: 5px 0 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 992px) {
+            .package-header h1 {
+                font-size: 2.8rem;
+            }
+            
+            .package-header:after {
+                right: -70px;
+                padding: 5px 70px;
+            }
+            
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .package-content {
+                flex-direction: column;
+            }
+            
+            .package-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .package-header:after {
+                right: -80px;
+                padding: 5px 60px;
+                font-size: 0.9rem;
+            }
+            
+            .feature-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .thumbnails {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .cta-section h2 {
+                font-size: 2rem;
+            }
+            
+            .showcase-title {
+                font-size: 2rem;
+            }
+            
+            .testimonial-section {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="package-header">
+            <h1>Premium Wedding Decor Package</h1>
+            <p>Experience the epitome of luxury with our exclusive premium wedding decor package, designed to create breathtaking, Instagram-worthy moments at your special day</p>
+        </div>
+        
+        <div class="package-content">
+            <div class="package-details">
+                <h2>Package Details</h2>
+                
+                <div class="package-features">
+                    <h3><i class="fas fa-crown"></i> Premium Package Includes:</h3>
+                    <ul class="feature-list">
+                        <li class="premium-feature">Luxury Stage Decoration (20x12 ft)</li>
+                        <li class="premium-feature">Premium Floral Arrangements</li>
+                        <li class="premium-feature">Chandelier Ceiling Décor</li>
+                        <li class="premium-feature">Grand Crystal Entrance Arch</li>
+                        <li class="premium-feature">Professional Lighting System</li>
+                        <li class="premium-feature">Luxury Seating Arrangement</li>
+                        <li class="premium-feature">Royal Mandap Decoration</li>
+                        <li class="premium-feature">Personal Wedding Designer</li>
+                        <li class="premium-feature">Custom 3D Backdrop</li>
+                        <li class="premium-feature">Premium Centerpieces</li>
+                        <li class="premium-feature">Floral Aisle Runner</li>
+                        <li class="premium-feature">VIP Photo Booth Setup</li>
+                        <li class="premium-feature">Candle & Crystal Decor</li>
+                        <li class="premium-feature">Luxury Table Settings</li>
+                        <li class="premium-feature">Premium Sound System</li>
+                        <li class="premium-feature">LED Dance Floor</li>
+                        <li class="premium-feature">Hanging Floral Installations</li>
+                        <li class="premium-feature">Custom Signage</li>
+                        <li class="premium-feature">Fog Machine Effects</li>
+                        <li class="premium-feature">Full Venue Transformation</li>
+                        <li>Stage Decoration (12x8 ft)</li>
+                        <li>Floral Arrangements</li>
+                        <li>Ceiling Décor with Fabric</li>
+                        <li>Entryway Décor</li>
+                        <li>Basic Lighting Setup</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="package-gallery">
+                <img src="https://images.pexels.com/photos/169198/pexels-photo-169198.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Luxury Wedding Stage" class="main-image" id="mainImage">
+                <div class="thumbnails">
+                    <img src="https://images.pexels.com/photos/169198/pexels-photo-169198.jpeg?auto=compress&cs=tinysrgb&w=500&h=350&dpr=1" alt="Luxury Stage Decor" class="thumbnail" onclick="changeImage(this)">
+                    <img src="https://images.pexels.com/photos/1702373/pexels-photo-1702373.jpeg?auto=compress&cs=tinysrgb&w=500&h=350&dpr=1" alt="Floral Mandap" class="thumbnail" onclick="changeImage(this)">
+                    <img src="https://images.pexels.com/photos/1702370/pexels-photo-1702370.jpeg?auto=compress&cs=tinysrgb&w=500&h=350&dpr=1" alt="Ceiling Decor" class="thumbnail" onclick="changeImage(this)">
+                    <img src="https://images.pexels.com/photos/1702374/pexels-photo-1702374.jpeg?auto=compress&cs=tinysrgb&w=500&h=350&dpr=1" alt="Entrance Gate" class="thumbnail" onclick="changeImage(this)">
+                    <img src="https://images.pexels.com/photos/1702371/pexels-photo-1702371.jpeg?auto=compress&cs=tinysrgb&w=500&h=350&dpr=1" alt="Seating Area" class="thumbnail" onclick="changeImage(this)">
+                    <img src="https://images.pexels.com/photos/1702372/pexels-photo-1702372.jpeg?auto=compress&cs=tinysrgb&w=500&h=350&dpr=1" alt="Full Venue View" class="thumbnail" onclick="changeImage(this)">
+                </div>
+            </div>
+        </div>
+        
+        <div class="decoration-showcase">
+            <h3 class="showcase-title">Our Premium Decor Elements</h3>
+            <div class="decoration-grid">
+                <!-- Stage Decorations -->
+                <div class="decoration-card">
+                    <img src="https://images.pexels.com/photos/169198/pexels-photo-169198.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&dpr=1" alt="Luxury Wedding Stage" class="decoration-img">
+                    <div class="decoration-info">
+                        <h4>Luxury Stage Decor</h4>
+                        <p>Opulently decorated wedding stage with premium floral accents, crystal elements, and luxurious fabrics</p>
+                    </div>
+                </div>
+                
+                <!-- Mandap Decorations -->
+                <div class="decoration-card">
+                    <img src="https://images.pexels.com/photos/1702373/pexels-photo-1702373.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&dpr=1" alt="Royal Mandap" class="decoration-img">
+                    <div class="decoration-info">
+                        <h4>Royal Mandap</h4>
+                        <p>Exquisitely decorated mandap with fresh premium flowers, crystal drapes, and golden accents</p>
+                    </div>
+                </div>
+                
+                <!-- Entrance Decorations -->
+                <div class="decoration-card">
+                    <img src="https://images.pexels.com/photos/1702374/pexels-photo-1702374.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&dpr=1" alt="Grand Entrance" class="decoration-img">
+                    <div class="decoration-info">
+                        <h4>Grand Crystal Entrance</h4>
+                        <p>Breathtaking entrance decor featuring crystal arches and premium floral arrangements</p>
+                    </div>
+                </div>
+                
+                <!-- Ceiling Decorations -->
+                <div class="decoration-card">
+                    <img src="https://images.pexels.com/photos/1702370/pexels-photo-1702370.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&dpr=1" alt="Chandelier Ceiling" class="decoration-img">
+                    <div class="decoration-info">
+                        <h4>Chandelier Ceiling</h4>
+                        <p>Luxurious ceiling decor featuring crystal chandeliers and hanging floral installations</p>
+                    </div>
+                </div>
+                
+                <!-- Seating Area -->
+                <div class="decoration-card">
+                    <img src="https://images.pexels.com/photos/1702371/pexels-photo-1702371.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&dpr=1" alt="VIP Seating" class="decoration-img">
+                    <div class="decoration-info">
+                        <h4>VIP Seating Arrangement</h4>
+                        <p>Luxury chair decor with premium fabrics, floral accents, and crystal details</p>
+                    </div>
+                </div>
+                
+                <!-- Photo Corner -->
+                <div class="decoration-card">
+                    <img src="https://images.pexels.com/photos/1702372/pexels-photo-1702372.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&dpr=1" alt="Premium Photo Booth" class="decoration-img">
+                    <div class="decoration-info">
+                        <h4>Premium Photo Booth</h4>
+                        <p>Exclusive photo area with professional lighting and premium backdrop</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="testimonial-section">
+            <h3 class="testimonial-title">What Our Clients Say</h3>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">The premium package transformed our wedding into a fairy tale! Every detail was perfect, from the crystal chandeliers to the floral arrangements. Our guests couldn't stop talking about how beautiful everything was.</p>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Priya K." class="author-avatar">
+                        <div class="author-info">
+                            <h5>Priya K.</h5>
+                            <p>Delhi, January 2023</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p class="testimonial-text">Worth every penny! The decor team created magic with the premium package. The hanging floral installations and LED dance floor were showstoppers. We received countless compliments.</p>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Rahul S." class="author-avatar">
+                        <div class="author-info">
+                            <h5>Rahul S.</h5>
+                            <p>Mumbai, November 2022</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p class="testimonial-text">The personal wedding designer made all the difference. They understood our vision perfectly and executed it flawlessly. The premium package made our wedding look like something out of a magazine.</p>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Ananya P." class="author-avatar">
+                        <div class="author-info">
+                            <h5>Ananya P.</h5>
+                            <p>Bangalore, March 2023</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="cta-section">
+            <h2>Elevate Your Wedding Experience</h2>
+            <p>Our premium package offers the ultimate in luxury wedding decor, creating unforgettable moments that will be cherished forever. Contact us today to discuss your dream wedding!</p>
+            <button class="cta-button">
+                <i class="fas fa-gem"></i> Book Premium Package
+            </button>
+            <div class="contact-info">
+                <p><i class="fas fa-phone-alt"></i> +91 98765 43210 | <i class="fas fa-envelope"></i> premium@decorwedtayari.com</p>
+            </div>
+        </div>
+        
+        <a href="packages.html" class="back-link">
+            <i class="fas fa-arrow-left"></i> Back to All Packages
+        </a>
+    </div>
+
+    <script>
+        // Change main image when thumbnail is clicked
+        function changeImage(element) {
+            document.getElementById('mainImage').src = element.src.replace('500', '1260').replace('350', '750');
+        }
+        
+        // Animation for decoration cards when they come into view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 150);
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.decoration-card').forEach(card => {
+            card.style.opacity = 0;
+            card.style.transform = 'translateY(40px)';
+            card.style.transition = 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
+            observer.observe(card);
+        });
+        
+        // Animation for testimonial cards
+        document.querySelectorAll('.testimonial-card').forEach((card, index) => {
+            card.style.opacity = 0;
+            card.style.transform = 'translateX(' + (index % 2 === 0 ? '-' : '') + '40px)';
+            card.style.transition = 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
+            observer.observe(card);
+        });
+        
+        // Add hover effect to package features
+        document.querySelectorAll('.feature-list li').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.boxShadow = '0 8px 20px rgba(156,39,176,0.2)';
+            });
+            item.addEventListener('mouseleave', function() {
+                this.style.boxShadow = 'none';
+            });
+        });
+    </script>
+</body>
+</html>

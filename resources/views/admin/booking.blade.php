@@ -25,10 +25,11 @@
                     <th>Customer Name</th>
                     <th>Customer Email</th>
                     <th>Customer Phone</th>
+                    <th>Booking Date</th>
                     <th>Total Price</th>
                     <th>Status</th>
                     <th>Booking Date</th>
-                    <th>Actions</th>
+                    
                 </tr>
             </thead>
             <tbody>
@@ -39,6 +40,7 @@
                         <td>{{ $booking->customer_name }}</td>
                         <td>{{ $booking->customer_email }}</td>
                         <td>{{ $booking->customer_phone }}</td>
+                        <td>{{ $booking->booking_date }}</td>
                         <td>{{ number_format($booking->total_price, 2) }}</td>
                         <td>
                             @if($booking->status === 'pending')
@@ -61,10 +63,7 @@
                             @endif
                         </td>
                         <td>{{ $booking->created_at->format('d/m/Y H:i') }}</td>
-                        <td>
-                            <a href="#" class="btn btn-sm btn-info">View</a>
-                            <a href="#" class="btn btn-sm btn-primary">Edit</a>
-                        </td>
+                       
                     </tr>
                 @empty
                     <tr>

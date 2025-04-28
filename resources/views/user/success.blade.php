@@ -9,9 +9,9 @@
 <body>
     <div class="container mt-5">
         <h1>Booking Successful!</h1>
-        
+
         <p>{{ session('message') }}</p>
-        <a class="btn btn-primary">Make Another Booking</a>
+        <a href="/" class="btn btn-primary">Make Another Booking</a>
     </div>
 </body>
 </html>

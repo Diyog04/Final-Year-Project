@@ -45,18 +45,24 @@ Route::delete('/delete/{id}', [AdminController::class, 'destroydel'])->name('pro
 //     return view('Admin/admindashboard');
 // })->middleware(['auth', 'verified'])->name('user');
 
+Route::middleware('auth','role:admin')->group(function () {
+    Route::get('/admindash', [AdminController::class, 'Admin']);
+});
+
+
+
 Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.detail');
 
-Route::get('/search', [EventController::class, 'search'])->name('event.search');
-Route::get('/events', [EventController::class, 'index'])->name('events.index');
+Route::get('/search', [IndexController::class, 'search'])->name('event.search');
+
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // });
 
-// Route::middleware('auth', 'role:admin')->group(function () {
-//     Route::get('/admindash', [AdminController::class, 'Admin']);
-// });
+Route::middleware('auth', 'role:admin')->group(function () {
+    Route::get('/admindash', [AdminController::class, 'Admin']);
+});
 
 
 Route::get('/admindash', [AdminController::class, 'Admin']);
@@ -65,7 +71,7 @@ Route::get('/admindash', [AdminController::class, 'Admin']);
 // Route::middleware('auth', 'role:vendor')->group(function () {
 //     Route::get('/vendordash', [VendorController::class, 'Vendor']);
 // });
- 
+
 // Route::middleware('auth', 'role:user')->group(function () {
 //     Route::get('/userdash', [UserController::class, 'User']);
 // });
@@ -81,11 +87,13 @@ Route::get('/bookings/success', [BookingController::class, 'success'])->name('bo
 
 Route::get('/admin/bookings', [AdminController::class, 'index'])->name('admin.bookings.index');
 Route::patch('/bookings/{booking}/update-status', [AdminController::class, 'updateStatus'])
-    ->name('bookings.update-status');
+->name('bookings.update-status');
+
+Route::get('/user/payments', [AdminController::class, 'showPayments'])->name('admin.payment');
 
 
-    // Notifications
-    // Mark single notification as read
+// Notifications
+// Mark single notification as read
 Route::post('/notifications/{notification}/mark-as-read', function ($notificationId) {
     auth()->user()->notifications()->where('id', $notificationId)->update(['read_at' => now()]);
     return back();
@@ -128,7 +136,7 @@ Route::get('/user/recent-bookings', [UserController::class, 'showRecentBookings'
 
 Route::post('to-become-slider', [SliderController::class, 'Slider'])->name('slider.store');
 Route::post('to-become-call', [CallController::class, 'Call'])->name('call.store');
-Route::post('to-become-product', [ProductController::class, 'Product'])->name('product.store');
+Route::post('to-become-product', [ProductController::class, 'store'])->name('product.store');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
